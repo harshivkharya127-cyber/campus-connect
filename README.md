@@ -10,6 +10,7 @@ Built end-to-end: React server components for the UI, server actions as the back
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38bdf8?logo=tailwindcss&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-Postgres%20%7C%20Auth%20%7C%20Storage-3ecf8e?logo=supabase&logoColor=white)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![CI](https://github.com/harshivkharya127-cyber/campus-connect/actions/workflows/ci.yml/badge.svg)
 
 ---
 
