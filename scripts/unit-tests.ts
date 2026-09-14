@@ -28,10 +28,10 @@ function minutesAgo(minutes: number) {
 }
 
 section("Relative timestamps");
-check("a note posted 2 hours ago reads “2h ago”", timeAgo(minutesAgo(120)) === "2h ago", timeAgo(minutesAgo(120)));
+check("a note posted 2 hours ago reads “2 hours ago”", timeAgo(minutesAgo(120)) === "2 hours ago", timeAgo(minutesAgo(120)));
 check("a post from seconds ago reads “just now”", timeAgo(new Date(Date.now() - 5_000)) === "just now");
-check("a 3-day-old answer reads “3d ago”", timeAgo(minutesAgo(3 * 24 * 60)) === "3d ago", timeAgo(minutesAgo(3 * 24 * 60)));
-check("a club founded 2 years ago reads “2y ago”", timeAgo(minutesAgo(2 * 365 * 24 * 60)) === "2y ago", timeAgo(minutesAgo(2 * 365 * 24 * 60)));
+check("a 3-day-old answer reads “3 days ago”", timeAgo(minutesAgo(3 * 24 * 60)) === "3 days ago", timeAgo(minutesAgo(3 * 24 * 60)));
+check("a club founded 2 years ago reads “2 years ago”", timeAgo(minutesAgo(2 * 365 * 24 * 60)) === "2 years ago", timeAgo(minutesAgo(2 * 365 * 24 * 60)));
 check("future timestamps don't crash (renders as just now)", timeAgo(new Date(Date.now() + 60_000)) === "just now");
 
 section("Avatar initials fallback");

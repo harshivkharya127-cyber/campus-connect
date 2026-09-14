@@ -28,15 +28,20 @@ export function timeAgo(value: string | Date): string {
   const date = typeof value === "string" ? new Date(value) : value;
   const diff = Date.now() - date.getTime();
   const minutes = Math.round(diff / 60000);
+
+  // Words instead of "2h ago" — reads like a person wrote it, and the
+  // singular/plural split keeps "1 hour ago" grammatical.
+  const span = (count: number, unit: string) => `${count} ${unit}${count === 1 ? "" : "s"} ago`;
+
   if (minutes < 1) return "just now";
-  if (minutes < 60) return `${minutes}m ago`;
+  if (minutes < 60) return span(minutes, "minute");
   const hours = Math.round(minutes / 60);
-  if (hours < 24) return `${hours}h ago`;
+  if (hours < 24) return span(hours, "hour");
   const days = Math.round(hours / 24);
-  if (days < 30) return `${days}d ago`;
+  if (days < 30) return span(days, "day");
   const months = Math.round(days / 30);
-  if (months < 12) return `${months}mo ago`;
-  return `${Math.round(months / 12)}y ago`;
+  if (months < 12) return span(months, "month");
+  return span(Math.round(months / 12), "year");
 }
 
 export function formatFileSize(bytes: number | null | undefined): string {
