@@ -189,6 +189,8 @@ Ten tables, all created by [`supabase/schema.sql`](supabase/schema.sql):
 
 The backend is server actions plus Supabase, so there is no separate API service to host.
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/harshivkharya127-cyber/campus-connect&env=NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY&envDescription=Supabase%20project%20URL%20and%20publishable%20key&project-name=campus-connect)
+
 1. Push the repository to GitHub.
 2. Import it into [Vercel](https://vercel.com/new) (framework preset: Next.js — no build tweaks needed).
 3. Add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` in the project's environment variables.
