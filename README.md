@@ -218,7 +218,31 @@ The backend is server actions plus Supabase, so there is no separate API service
 - [ ] Calendar view and `.ics` export for events
 - [ ] Generated Supabase types via `supabase gen types typescript`
 
+## Design decisions & trade-offs
+
+The UI is deliberately plain — a working product a student could have built for their own campus. The choices below are the reasons behind it.
+
+**Colour and surfaces.** Three colours do all the work: deep navy for text and the active nav, off-white (cream) for surfaces, and one amber accent for primary buttons and highlights. Semantic tones (positive/caution/danger) exist only for status badges and messages. Every surface is flat with a 1px border — no gradients, glass blur or shadow stacks. Flat surfaces are cheaper to paint, don't shift when borders load late, and are easy to describe in a review: "navy on cream, one accent".
+
+**A design-token CSS layer.** Instead of sprinkling raw Tailwind palette classes through components, `globals.css` defines semantic utilities (`text-ink`, `border-line`, `btn-primary`, `card`, `badge`). Components read like intent ("this is a card") rather than implementation ("rounded-xl border-slate-200 bg-white shadow-sm"). Re-theming or dark mode later means editing one layer, not thirty files.
+
+**Density over decoration.** Cards are left-aligned, compact and information-first: what, where, when, how full, posted how long ago. Feature cards use small line icons rather than emoji or illustrations, because icons inherit text colour and stay quiet on every screen.
+
+**Language.** Copy is written the way students talk ("Host one for your club", "your juniors will thank you") rather than the way libraries document themselves. Technical vocabulary (RLS, buckets, server actions) is confined to the About page and this README, where someone deciding whether to clone the repo actually needs it.
+
+**States are first-class.** Every listing route has a `loading.tsx` skeleton that mirrors the real card grid (no layout jump), an empty state whose button scrolls to the create form, and a route-level `error.tsx` with a retry button and the error digest shown as a reference code. Destructive actions require a second, explicit confirmation with a visible way out — implemented once in `ActionForm` (arm → "Yes, delete" / "Keep it") rather than per page.
+
+**Accessibility.** Visible `:focus-visible` rings everywhere via one CSS rule, a skip-to-content link, `aria-current="page"` on the active nav item, `aria-expanded`/`aria-controls` on the mobile menu, `role="status"`/`role="alert"` on form feedback, and `aria-label` on skeleton regions. The active nav item is a filled pill, so location never depends on colour alone. All interactive targets are real buttons or links — keyboard navigation works without extra code.
+
+**Trade-offs worth defending in a review:**
+- *Demo mode duplicates the data layer.* Running without Supabase needs an in-memory store that mirrors the real queries. It's extra code, but it makes the repo instantly explorable and doubles as an integration test fixture (`npm test` runs against it with no database).
+- *Server components + server actions instead of an API layer.* No `fetch`-from-own-API round trip, no client state management library. The cost is that mutations must go through forms/actions rather than ad-hoc client code — which here is a feature, because every mutation is validated server-side.
+- *`timeAgo` rather than a date library.* ~15 lines covers just-now → years, keeps the bundle free of a dependency, and the exact strings are pinned by unit tests.
+- *One shared `ListSkeleton`* instead of per-route bespoke skeletons: slightly less precise, much less code to explain.
+
 ## License
+
+
 
 MIT — use it, fork it, put your own campus's name on it.
 

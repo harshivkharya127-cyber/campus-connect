@@ -102,10 +102,10 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
         <p
           className={
             feedback.ok
-              ? "rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-3.5 py-2.5 text-sm text-emerald-200"
-              : "rounded-xl border border-amber-400/30 bg-amber-500/10 px-3.5 py-2.5 text-sm text-amber-200"
+              ? "rounded-md border border-positive/25 bg-positive/5 px-3.5 py-2.5 text-meta text-positive"
+              : "rounded-md border border-danger/25 bg-danger/5 px-3.5 py-2.5 text-meta text-danger"
           }
-          role="status"
+          role={feedback.ok ? "status" : "alert"}
         >
           {feedback.text}
         </p>
@@ -115,7 +115,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
         {pending ? "Please wait…" : mode === "signup" ? "Create account" : "Log in"}
       </button>
 
-      <p className="text-center text-sm text-slate-400">
+      <p className="text-center text-sm text-ink-muted">
         {mode === "signup" ? (
           <>
             Already have an account?{" "}

@@ -11,7 +11,7 @@ export async function SiteHeader() {
   const user = await getCurrentUser();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-ink-950/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-line bg-cream-50">
       <DemoModeBanner />
       <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link href="/" className="shrink-0">
@@ -23,7 +23,7 @@ export async function SiteHeader() {
             userName={user?.fullName ?? null}
             signOut={
               <form action={signOutAction}>
-                <SubmitButton className="btn-ghost px-3.5 py-2" pendingText="Signing out…">
+                <SubmitButton className="btn-quiet px-3.5 py-2" pendingText="Signing out…">
                   Sign out
                 </SubmitButton>
               </form>

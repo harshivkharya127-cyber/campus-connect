@@ -38,7 +38,7 @@ export function NoteUploadForm({ demoMode }: { demoMode: boolean }) {
 
       <div>
         <label className="label" htmlFor="file">
-          File <span className="text-brand-300">*</span>
+          File <span className="text-accent-700">*</span>
         </label>
         <input
           id="file"
@@ -46,13 +46,13 @@ export function NoteUploadForm({ demoMode }: { demoMode: boolean }) {
           type="file"
           required
           accept=".pdf,.doc,.docx,.ppt,.pptx,.txt,.md,.png,.jpg,.jpeg"
-          className="input file:mr-3 file:rounded-lg file:border-0 file:bg-brand-500/20 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-brand-100"
+          className="input file:mr-3 file:rounded-md file:border-0 file:bg-cream-200 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-navy-900"
         />
-        <p className="mt-1 text-xs text-slate-500">PDF, Office or image files up to 10 MB.</p>
+        <p className="mt-1 text-xs text-ink-muted">PDF, Office or image files up to 10 MB.</p>
       </div>
 
       {demoMode ? (
-        <p className="rounded-xl border border-amber-400/30 bg-amber-500/10 px-3.5 py-2.5 text-xs text-amber-200">
+        <p className="rounded-md border border-caution/25 bg-caution/5 px-3.5 py-2.5 text-meta text-caution">
           Demo mode: the metadata row is saved in memory, but the file itself needs Supabase Storage. Connect your project
           to store and share real files.
         </p>

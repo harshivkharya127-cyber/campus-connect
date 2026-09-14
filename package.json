@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "tsx scripts/smoke-test.ts",
+    "test": "tsx scripts/unit-tests.ts && tsx scripts/smoke-test.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

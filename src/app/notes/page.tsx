@@ -26,7 +26,7 @@ export default async function NotesPage({ searchParams }: { searchParams: Promis
       <PageHeader
         eyebrow="Notes"
         title="Notes that actually help"
-        description="Upload unit-wise PDFs, tag them by course and semester, and let the whole campus download them. Files live in Supabase Storage; the metadata lives in Postgres."
+        description="Last semester's toppers' notes, lab records and past papers — uploaded by students, free to download."
       />
 
       <section className="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -54,7 +54,7 @@ export default async function NotesPage({ searchParams }: { searchParams: Promis
           Search
         </button>
         {q ? (
-          <a href="/notes" className="btn-ghost">
+          <a href="/notes" className="btn-quiet">
             Clear
           </a>
         ) : null}
@@ -74,13 +74,28 @@ export default async function NotesPage({ searchParams }: { searchParams: Promis
             </div>
           ) : (
             <EmptyState
-              title={q ? "No notes match that search" : "No notes shared yet"}
-              description={q ? "Try another subject, course code or keyword." : "Upload the first set of notes."}
+              title={q ? `No notes match “${q}”` : "No notes shared yet"}
+              description={
+                q
+                  ? "Try a subject name, a course code, or a broader keyword."
+                  : "Upload the first set of notes — your juniors will thank you."
+              }
+              action={
+                q ? (
+                  <a href="/notes" className="btn-outline btn-sm">
+                    Clear search
+                  </a>
+                ) : (
+                  <a href="#share" className="btn-primary btn-sm">
+                    Upload notes
+                  </a>
+                )
+              }
             />
           )}
         </section>
 
-        <aside className="space-y-5 lg:sticky lg:top-28 lg:self-start">
+        <aside id="share" className="space-y-5 lg:sticky lg:top-28 lg:self-start">
           <Panel title="Share your notes" description="PDF, Office or image files up to 10 MB.">
             {user ? (
               <NoteUploadForm demoMode={!isSupabaseConfigured} />
@@ -90,9 +105,9 @@ export default async function NotesPage({ searchParams }: { searchParams: Promis
           </Panel>
 
           <div className="card">
-            <h3 className="text-sm font-semibold text-white">Where the files go</h3>
-            <p className="mt-2 text-sm text-slate-400">
-              The file is uploaded to the <code className="rounded bg-black/40 px-1 font-mono text-xs">notes</code> bucket
+            <h3 className="text-sm font-semibold text-navy-900">Where the files go</h3>
+            <p className="mt-2 text-sm text-ink-muted">
+              The file is uploaded to the <code className="rounded bg-cream-200 px-1 font-mono text-xs">notes</code> bucket
               under a folder named after the uploader&apos;s user id, and the row keeps the storage path, size and MIME type.
               Storage policies are scoped the same way as the tables.
             </p>

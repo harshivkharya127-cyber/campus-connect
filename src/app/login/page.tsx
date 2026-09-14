@@ -20,7 +20,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
       />
 
       {error ? (
-        <p className="rounded-xl border border-amber-400/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+        <p className="rounded-md border border-danger/25 bg-danger/5 px-4 py-3 text-meta text-danger">
           That confirmation link could not be verified. Try logging in, or sign up again to get a fresh email.
         </p>
       ) : null}
@@ -29,22 +29,22 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
         {isSupabaseConfigured ? (
           <AuthForm mode="login" />
         ) : (
-          <div className="card space-y-4 text-sm text-slate-400">
-            <h2 className="text-base font-semibold text-white">Supabase is not connected yet</h2>
+          <div className="card space-y-4 text-sm text-ink-muted">
+            <h2 className="text-base font-semibold text-navy-900">Supabase is not connected yet</h2>
             <p>
               This instance is running in demo mode: you are already signed in as <strong>Demo Student</strong> and every
               feature works on seeded data.
             </p>
             <p>
-              To enable real accounts, add <code className="rounded bg-black/40 px-1 font-mono text-xs">NEXT_PUBLIC_SUPABASE_URL</code>{" "}
-              and a publishable key to <code className="rounded bg-black/40 px-1 font-mono text-xs">.env.local</code>, then
-              run the SQL in <code className="rounded bg-black/40 px-1 font-mono text-xs">supabase/schema.sql</code>.
+              To enable real accounts, add <code className="rounded bg-cream-200 px-1 font-mono text-xs">NEXT_PUBLIC_SUPABASE_URL</code>{" "}
+              and a publishable key to <code className="rounded bg-cream-200 px-1 font-mono text-xs">.env.local</code>, then
+              run the SQL in <code className="rounded bg-cream-200 px-1 font-mono text-xs">supabase/schema.sql</code>.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link href="/events" className="btn-primary px-4 py-2.5">
                 Continue in demo mode
               </Link>
-              <Link href="/about" className="btn-ghost px-4 py-2.5">
+              <Link href="/about" className="btn-quiet px-4 py-2.5">
                 Read the setup guide
               </Link>
             </div>

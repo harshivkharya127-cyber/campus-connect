@@ -1,79 +1,226 @@
 @import "tailwindcss";
 
+/*
+ * Design tokens for Campus Connect.
+ *
+ * Palette: deep navy (structure), off-white paper (background), and one
+ * energetic accent (burnt orange) reserved for primary actions, links and
+ * focus rings. Surfaces are flat with 1px borders — no gradients, glass or
+ * drop shadows.
+ */
 @theme {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 
-  /* Brand palette */
-  --color-brand-100: #e0e7ff;
-  --color-brand-200: #c7d2fe;
-  --color-brand-300: #a5b4fc;
-  --color-brand-400: #818cf8;
-  --color-brand-500: #6366f1;
-  --color-brand-600: #4f46e5;
-  --color-brand-700: #4338ca;
+  /* Navy — header, headings, secondary buttons */
+  --color-navy-950: #0a1a2f;
+  --color-navy-900: #10233f;
+  --color-navy-800: #1b3a63;
+  --color-navy-700: #2a4d7d;
+  --color-navy-600: #3d6398;
+  --color-navy-100: #dbe4f0;
+  --color-navy-50: #eef3fa;
 
-  /* Surfaces */
-  --color-ink-800: #101a30;
-  --color-ink-900: #0a1122;
-  --color-ink-950: #050814;
+  /* Paper — page and panel backgrounds */
+  --color-cream-50: #faf8f4;
+  --color-cream-100: #f2efe8;
+  --color-cream-200: #e7e2d8;
+
+  /* Accent — the single energetic colour */
+  --color-accent-50: #fdf2e9;
+  --color-accent-100: #fbe0cb;
+  --color-accent-600: #c2410c;
+  --color-accent-700: #9a3412;
+  --color-accent-800: #7c2d12;
+
+  /* Feedback */
+  --color-danger: #b42318;
+  --color-positive: #1f7a4d;
+  --color-caution: #8a5a00;
+
+  /* Text and rules */
+  --color-ink: #24314a;
+  --color-ink-muted: #5b6b85;
+  --color-line: #e3ded3;
+
+  /* Compact UI type scale */
+  --text-body: 0.9375rem;
+  --text-body--line-height: 1.6;
+  --text-meta: 0.8125rem;
+  --text-meta--line-height: 1.5;
 }
 
 @layer base {
   html {
-    color-scheme: dark;
+    color-scheme: light;
   }
 
   body {
-    background-color: var(--color-ink-950);
-    color: #e2e8f0;
+    background-color: var(--color-cream-50);
+    color: var(--color-ink);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
     -webkit-font-smoothing: antialiased;
-    background-image:
-      radial-gradient(55rem 55rem at 12% -12%, rgba(99, 102, 241, 0.22), transparent 60%),
-      radial-gradient(45rem 45rem at 92% -5%, rgba(56, 189, 248, 0.14), transparent 55%);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+  }
+
+  /* One consistent focus treatment, always visible for keyboard users. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent-600);
+    outline-offset: 2px;
+    border-radius: 3px;
   }
 
   ::selection {
-    background: rgba(99, 102, 241, 0.35);
+    background: var(--color-accent-100);
+  }
+
+  h1,
+  h2,
+  h3 {
+    color: var(--color-navy-900);
+    letter-spacing: -0.01em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
+/*
+ * Base utilities that variants compose with @apply.
+ * Tailwind v4 only allows @apply on real utilities, so these are declared
+ * with @utility rather than as component classes.
+ */
+@utility btn {
+  @apply inline-flex h-10 items-center justify-center gap-2 rounded-md px-4 text-body font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-55;
+}
+
+@utility notice {
+  @apply rounded-md border px-4 py-3 text-meta;
+}
+
+@utility badge {
+  @apply inline-flex items-center gap-1 rounded border px-2 py-0.5 text-meta font-medium;
+}
+
 @layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-5xl px-4 sm:px-6;
+  }
+
+  /* Flat panels: a 1px border separates surfaces, not a shadow. */
   .card {
-    @apply rounded-2xl border border-white/10 bg-white/[0.035] p-5 shadow-lg shadow-black/20;
+    @apply rounded-lg border border-line bg-white p-5;
   }
 
   .card-hover {
-    @apply transition duration-200 hover:border-brand-400/40 hover:bg-white/[0.06];
+    @apply transition-colors hover:border-navy-600/40;
   }
 
   .label {
-    @apply mb-1.5 block text-xs font-medium tracking-wide text-slate-400 uppercase;
+    @apply mb-1.5 block text-sm font-medium text-navy-900;
   }
 
   .input {
-    @apply w-full rounded-xl border border-white/10 bg-ink-900/80 px-3.5 py-2.5 text-sm text-slate-100 transition outline-none placeholder:text-slate-500 focus:border-brand-400/60 focus:ring-2 focus:ring-brand-500/25;
+    @apply h-10 w-full rounded-md border border-line bg-white px-3 text-body text-ink transition-colors outline-none placeholder:text-ink-muted/70 focus:border-navy-700 focus:ring-3 focus:ring-navy-700/15;
+  }
+
+  textarea.input {
+    @apply h-auto py-2;
+  }
+
+  .input-invalid {
+    @apply border-danger focus:border-danger focus:ring-danger/15;
+  }
+
+  .hint {
+    @apply mt-1.5 text-meta text-ink-muted;
+  }
+
+  .error-text {
+    @apply mt-1.5 text-meta font-medium text-danger;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-400 hover:text-ink-950 disabled:cursor-not-allowed disabled:opacity-60;
+    @apply btn bg-accent-600 text-white hover:bg-accent-700;
   }
 
-  .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 px-4 py-2.5 text-sm font-semibold text-slate-200 transition hover:border-brand-400/50 hover:text-white disabled:cursor-not-allowed disabled:opacity-60;
+  .btn-secondary {
+    @apply btn bg-navy-900 text-white hover:bg-navy-800;
+  }
+
+  .btn-outline {
+    @apply btn border border-line bg-white text-navy-900 hover:bg-cream-100;
+  }
+
+  .btn-quiet {
+    @apply btn text-navy-800 hover:bg-cream-100;
   }
 
   .btn-danger {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-rose-500/40 px-3.5 py-2 text-sm font-semibold text-rose-300 transition hover:bg-rose-500/10 disabled:cursor-not-allowed disabled:opacity-60;
+    @apply btn border border-danger/35 text-danger hover:bg-danger/5;
   }
 
+  .btn-sm {
+    @apply h-9 px-3 text-meta;
+  }
+
+  .badge-neutral {
+    @apply badge border-line bg-cream-100 text-navy-800;
+  }
+
+  .badge-accent {
+    @apply badge border-accent-100 bg-accent-50 text-accent-800;
+  }
+
+  .badge-positive {
+    @apply badge border-positive/25 bg-positive/5 text-positive;
+  }
+
+  .badge-caution {
+    @apply badge border-caution/25 bg-caution/5 text-caution;
+  }
+
+  .badge-danger {
+    @apply badge border-danger/25 bg-danger/5 text-danger;
+  }
+
+  /* Small neutral tag for hashtags, usernames and inline metadata. */
   .chip {
-    @apply inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-medium text-slate-300;
+    @apply inline-flex items-center rounded border border-line bg-cream-100 px-2 py-0.5 text-meta text-navy-800;
   }
 
   .link {
-    @apply text-brand-300 underline-offset-4 transition hover:text-brand-200 hover:underline;
+    @apply font-medium text-accent-700 underline decoration-accent-600/40 underline-offset-2 transition-colors hover:text-accent-800 hover:decoration-accent-600;
+  }
+
+  .meta {
+    @apply text-meta text-ink-muted;
+  }
+
+  .empty {
+    @apply rounded-lg border border-dashed border-cream-200 bg-white px-5 py-8 text-center;
+  }
+
+  .notice-info {
+    @apply notice border-navy-100 bg-navy-50 text-navy-800;
+  }
+
+  .notice-caution {
+    @apply notice border-caution/25 bg-caution/5 text-caution;
+  }
+
+  .skeleton {
+    @apply animate-pulse rounded bg-cream-200/80;
+  }
+
+  /* Lets keyboard users jump straight past the navigation. */
+  .skip-link {
+    @apply absolute top-2 left-2 -translate-y-16 rounded-md bg-navy-900 px-4 py-2 text-body text-white transition-transform focus:translate-y-0;
   }
 }

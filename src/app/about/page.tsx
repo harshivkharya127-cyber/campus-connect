@@ -33,7 +33,7 @@ export default function AboutPage() {
         title="How Campus Connect is built"
         description="A complete full-stack path: UI, server-side logic, relational data, authentication, file uploads and deployment — with the boring parts (migrations, policies, triggers) checked into the repo."
         action={
-          <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="btn-ghost px-5 py-3">
+          <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="btn-quiet px-5 py-3">
             View source
           </a>
         }
@@ -42,21 +42,21 @@ export default function AboutPage() {
       <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {STACK.map((item) => (
           <div key={item.layer} className="card">
-            <p className="text-xs font-semibold tracking-widest text-brand-300 uppercase">{item.layer}</p>
-            <p className="mt-2 text-sm text-slate-300">{item.tech}</p>
+            <p className="text-xs font-semibold tracking-widest text-accent-700 uppercase">{item.layer}</p>
+            <p className="mt-2 text-sm text-ink">{item.tech}</p>
           </div>
         ))}
       </section>
 
       <section className="card overflow-x-auto">
-        <h2 className="text-lg font-semibold text-white">Feature → data → server action</h2>
-        <p className="mt-1 mb-4 text-sm text-slate-400">
+        <h2 className="text-lg font-semibold text-navy-900">Feature → data → server action</h2>
+        <p className="mt-1 mb-4 text-sm text-ink-muted">
           Every feature is a thin UI over its own tables, with validation living in a server action so the rules cannot be
           bypassed from the browser.
         </p>
         <table className="w-full min-w-[42rem] border-collapse text-left text-sm">
           <thead>
-            <tr className="border-b border-white/10 text-xs tracking-widest text-slate-400 uppercase">
+            <tr className="border-b border-line text-xs tracking-widest text-ink-muted uppercase">
               <th className="py-2 pr-4 font-medium">Feature</th>
               <th className="py-2 pr-4 font-medium">Tables</th>
               <th className="py-2 font-medium">Server actions</th>
@@ -64,10 +64,10 @@ export default function AboutPage() {
           </thead>
           <tbody>
             {MAPPING.map((row) => (
-              <tr key={row.feature} className="border-b border-white/5 last:border-0">
-                <td className="py-2.5 pr-4 font-medium text-slate-200">{row.feature}</td>
-                <td className="py-2.5 pr-4 font-mono text-xs text-brand-200">{row.tables}</td>
-                <td className="py-2.5 font-mono text-xs text-slate-400">{row.actions}</td>
+              <tr key={row.feature} className="border-b border-line last:border-0">
+                <td className="py-2.5 pr-4 font-medium text-navy-900">{row.feature}</td>
+                <td className="py-2.5 pr-4 font-mono text-xs text-accent-800">{row.tables}</td>
+                <td className="py-2.5 font-mono text-xs text-ink-muted">{row.actions}</td>
               </tr>
             ))}
           </tbody>
@@ -76,9 +76,9 @@ export default function AboutPage() {
 
       <section className="grid gap-5 lg:grid-cols-2">
         <div className="card">
-          <h2 className="text-lg font-semibold text-white">Security model</h2>
-          <ul className="mt-3 space-y-2 text-sm text-slate-400">
-            <li>• Row-level security is <strong className="text-slate-200">enabled on every table</strong>; reads are public, writes are not.</li>
+          <h2 className="text-lg font-semibold text-navy-900">Security model</h2>
+          <ul className="mt-3 space-y-2 text-sm text-ink-muted">
+            <li>• Row-level security is <strong className="text-navy-900">enabled on every table</strong>; reads are public, writes are not.</li>
             <li>• Inserts and updates are restricted to <code className="font-mono text-xs">auth.uid() = created_by</code>.</li>
             <li>• Accepting an answer is allowed only for the student who asked the question.</li>
             <li>• Note downloads run through a <code className="font-mono text-xs">SECURITY DEFINER</code> RPC so anyone can bump the counter without update rights on the row.</li>
@@ -88,8 +88,8 @@ export default function AboutPage() {
         </div>
 
         <div className="card">
-          <h2 className="text-lg font-semibold text-white">Request lifecycle</h2>
-          <ol className="mt-3 space-y-2 text-sm text-slate-400">
+          <h2 className="text-lg font-semibold text-navy-900">Request lifecycle</h2>
+          <ol className="mt-3 space-y-2 text-sm text-ink-muted">
             <li>1. A student submits a form — no client-side fetch code, just a React server action.</li>
             <li>2. The action re-validates every field on the server and redirects anonymous visitors to <code className="font-mono text-xs">/login</code>.</li>
             <li>3. The data layer (<code className="font-mono text-xs">src/lib/data/*</code>) writes through the Supabase client using the caller&apos;s cookie session, so RLS applies.</li>
@@ -101,20 +101,20 @@ export default function AboutPage() {
 
       <section className="grid gap-5 lg:grid-cols-2">
         <div className="card">
-          <h2 className="text-lg font-semibold text-white">Run it locally</h2>
-          <ol className="mt-3 space-y-2 text-sm text-slate-400">
+          <h2 className="text-lg font-semibold text-navy-900">Run it locally</h2>
+          <ol className="mt-3 space-y-2 text-sm text-ink-muted">
             <li>1. Install dependencies.</li>
           </ol>
-          <pre className="mt-2 overflow-x-auto rounded-xl border border-white/10 bg-black/40 p-3 font-mono text-xs text-slate-300">{`npm install\nnpm run dev`}</pre>
-          <p className="mt-3 text-sm text-slate-400">
+          <pre className="mt-2 overflow-x-auto rounded-lg border border-navy-800 bg-navy-950 p-3 font-mono text-xs text-cream-100">{`npm install\nnpm run dev`}</pre>
+          <p className="mt-3 text-sm text-ink-muted">
             That is enough to explore every screen: with no environment variables the app boots in demo mode with a seeded
             campus.
           </p>
         </div>
 
         <div className="card">
-          <h2 className="text-lg font-semibold text-white">Connect a real database</h2>
-          <ol className="mt-3 space-y-2 text-sm text-slate-400">
+          <h2 className="text-lg font-semibold text-navy-900">Connect a real database</h2>
+          <ol className="mt-3 space-y-2 text-sm text-ink-muted">
             <li>1. Create a free project at supabase.com.</li>
             <li>2. Open the SQL editor and run <code className="font-mono text-xs">supabase/schema.sql</code>, then <code className="font-mono text-xs">supabase/seed.sql</code>.</li>
             <li>3. Copy <code className="font-mono text-xs">.env.example</code> to <code className="font-mono text-xs">.env.local</code> and paste the project URL + publishable key.</li>
@@ -124,15 +124,15 @@ export default function AboutPage() {
       </section>
 
       <section className="card">
-        <h2 className="text-lg font-semibold text-white">Deploy it</h2>
-        <p className="mt-2 max-w-3xl text-sm text-slate-400">
+        <h2 className="text-lg font-semibold text-navy-900">Deploy it</h2>
+        <p className="mt-2 max-w-3xl text-sm text-ink-muted">
           Push this repository to GitHub, import it into Vercel, add the same two environment variables, and deploy. Because
           the backend lives in server actions and Supabase handles auth, data and storage, there is no separate server to
-          host. Supabase also needs your deployed URL in <strong className="text-slate-200">Authentication → URL
+          host. Supabase also needs your deployed URL in <strong className="text-navy-900">Authentication → URL
           configuration</strong> so confirmation emails redirect back to <code className="font-mono text-xs">/auth/callback</code>.
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
-          <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="btn-ghost px-5 py-3">
+          <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="btn-quiet px-5 py-3">
             Repository
           </a>
           <Link href="/events" className="btn-primary px-5 py-3">

@@ -8,14 +8,14 @@ export function TeammateCard({ post, isOwner }: { post: TeammatePost; isOwner: b
   return (
     <Card className="card-hover flex h-full flex-col gap-4">
       <div className="flex flex-wrap items-center gap-2">
-        <Badge tone="brand">{post.project_type}</Badge>
-        <Badge tone={post.is_open ? "success" : "default"}>{post.is_open ? "Open" : "Closed"}</Badge>
-        <span className="text-xs text-slate-400">{post.interest_count} interested</span>
+        <Badge tone="accent">{post.project_type}</Badge>
+        <Badge tone={post.is_open ? "positive" : "neutral"}>{post.is_open ? "Open" : "Closed"}</Badge>
+        <span className="text-xs text-ink-muted">{post.interest_count} interested</span>
       </div>
 
       <div>
-        <h3 className="text-lg font-semibold text-white">{post.title}</h3>
-        <p className="mt-1.5 line-clamp-3 text-sm text-slate-400">{post.description}</p>
+        <h3 className="text-lg font-semibold text-navy-900">{post.title}</h3>
+        <p className="mt-1.5 line-clamp-3 text-sm text-ink-muted">{post.description}</p>
       </div>
 
       {post.skills.length > 0 ? (
@@ -29,7 +29,7 @@ export function TeammateCard({ post, isOwner }: { post: TeammatePost; isOwner: b
       ) : null}
 
       <div className="mt-auto space-y-3">
-        <p className="text-xs text-slate-400">
+        <p className="text-xs text-ink-muted">
           {post.deadline ? `Apply by ${formatDate(post.deadline)}` : "No deadline — reach out anytime"}
         </p>
         <AuthorLine name={post.author_name} timestamp={timeAgo(post.created_at)} />
@@ -40,11 +40,11 @@ export function TeammateCard({ post, isOwner }: { post: TeammatePost; isOwner: b
               fields={{ postId: post.id }}
               label={post.interested ? "Interest sent" : "I'm interested"}
               pendingLabel="Sending…"
-              className={post.interested ? "btn-ghost" : "btn-primary"}
+              className={post.interested ? "btn-quiet" : "btn-primary"}
             />
           ) : null}
           {post.contact_url ? (
-            <a href={post.contact_url} target="_blank" rel="noreferrer" className="btn-ghost">
+            <a href={post.contact_url} target="_blank" rel="noreferrer" className="btn-quiet">
               Contact link
             </a>
           ) : null}
@@ -55,7 +55,7 @@ export function TeammateCard({ post, isOwner }: { post: TeammatePost; isOwner: b
                 fields={{ postId: post.id, isOpen: post.is_open ? "false" : "true" }}
                 label={post.is_open ? "Close post" : "Reopen"}
                 pendingLabel="Saving…"
-                className="btn-ghost"
+                className="btn-quiet"
               />
               <ActionForm
                 action={deleteTeammatePostAction}
@@ -63,6 +63,7 @@ export function TeammateCard({ post, isOwner }: { post: TeammatePost; isOwner: b
                 label="Delete"
                 pendingLabel="Deleting…"
                 className="btn-danger"
+                confirm="post"
               />
             </>
           ) : null}

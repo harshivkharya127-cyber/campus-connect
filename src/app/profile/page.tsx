@@ -43,7 +43,7 @@ export default async function ProfilePage() {
       />
 
       {!isSupabaseConfigured ? (
-        <p className="rounded-xl border border-amber-400/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+        <p className="rounded-md border border-caution/25 bg-caution/5 px-4 py-3 text-meta text-caution">
           You are signed in as the shared demo student. Connect Supabase to create real accounts and keep this profile
           between visits.
         </p>
@@ -52,18 +52,18 @@ export default async function ProfilePage() {
       <section className="card flex flex-wrap items-center gap-5">
         <Avatar name={user.fullName} className="size-16 text-lg" />
         <div className="min-w-48 flex-1">
-          <h2 className="text-xl font-semibold text-white">{user.fullName}</h2>
-          <p className="text-sm text-slate-400">
+          <h2 className="text-xl font-semibold text-navy-900">{user.fullName}</h2>
+          <p className="text-sm text-ink-muted">
             @{user.username}
             {user.email ? ` · ${user.email}` : ""}
           </p>
           <div className="mt-2 flex flex-wrap gap-2">
             {profile?.college ? <Badge>{profile.college}</Badge> : null}
-            {profile?.major ? <Badge tone="brand">{profile.major}</Badge> : null}
-            {profile?.grad_year ? <Badge tone="success">Class of {profile.grad_year}</Badge> : null}
+            {profile?.major ? <Badge tone="accent">{profile.major}</Badge> : null}
+            {profile?.grad_year ? <Badge tone="positive">Class of {profile.grad_year}</Badge> : null}
             <Badge>Joined {formatDate(profile?.created_at ?? new Date().toISOString())}</Badge>
           </div>
-          {profile?.bio ? <p className="mt-3 max-w-2xl text-sm text-slate-300">{profile.bio}</p> : null}
+          {profile?.bio ? <p className="mt-3 max-w-2xl text-sm text-ink">{profile.bio}</p> : null}
         </div>
       </section>
 
@@ -91,9 +91,9 @@ export default async function ProfilePage() {
 
         <section className="space-y-5">
           <div className="card">
-            <h3 className="text-sm font-semibold text-white">Events you host</h3>
+            <h3 className="text-sm font-semibold text-navy-900">Events you host</h3>
             {myEvents.length ? (
-              <ul className="mt-3 space-y-2 text-sm text-slate-300">
+              <ul className="mt-3 space-y-2 text-sm text-ink">
                 {myEvents.map((event) => (
                   <li key={event.id} className="flex items-center justify-between gap-3">
                     <span className="truncate">{event.title}</span>
@@ -102,14 +102,14 @@ export default async function ProfilePage() {
                 ))}
               </ul>
             ) : (
-              <p className="mt-2 text-sm text-slate-400">Nothing yet — host something from the events page.</p>
+              <p className="mt-2 text-sm text-ink-muted">Nothing yet — host something from the events page.</p>
             )}
           </div>
 
           <div className="card">
-            <h3 className="text-sm font-semibold text-white">Clubs you joined</h3>
+            <h3 className="text-sm font-semibold text-navy-900">Clubs you joined</h3>
             {myClubs.length ? (
-              <ul className="mt-3 space-y-2 text-sm text-slate-300">
+              <ul className="mt-3 space-y-2 text-sm text-ink">
                 {myClubs.map((club) => (
                   <li key={club.id} className="truncate">
                     {club.name}
@@ -117,13 +117,13 @@ export default async function ProfilePage() {
                 ))}
               </ul>
             ) : (
-              <p className="mt-2 text-sm text-slate-400">Join a club to see it here.</p>
+              <p className="mt-2 text-sm text-ink-muted">Join a club to see it here.</p>
             )}
           </div>
 
           <div className="card">
-            <h3 className="text-sm font-semibold text-white">Your contributions</h3>
-            <ul className="mt-3 space-y-2 text-sm text-slate-300">
+            <h3 className="text-sm font-semibold text-navy-900">Your contributions</h3>
+            <ul className="mt-3 space-y-2 text-sm text-ink">
               <li>{myNotes.length} notes shared</li>
               <li>{myPosts.length} teammate posts</li>
               <li>{myQuestions.length} questions asked</li>

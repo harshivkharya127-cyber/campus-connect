@@ -20,10 +20,10 @@ export function TextField({
     <div>
       <label className="label" htmlFor={name}>
         {label}
-        {required ? <span className="text-brand-300"> *</span> : null}
+        {required ? <span className="text-accent-700"> *</span> : null}
       </label>
       <input id={name} name={name} required={required} className="input" {...props} />
-      {hint ? <p className="mt-1 text-xs text-slate-500">{hint}</p> : null}
+      {hint ? <p className="hint">{hint}</p> : null}
     </div>
   );
 }
@@ -39,10 +39,10 @@ export function TextAreaField({
     <div>
       <label className="label" htmlFor={name}>
         {label}
-        {required ? <span className="text-brand-300"> *</span> : null}
+        {required ? <span className="text-accent-700"> *</span> : null}
       </label>
       <textarea id={name} name={name} required={required} rows={4} className="input" {...props} />
-      {hint ? <p className="mt-1 text-xs text-slate-500">{hint}</p> : null}
+      {hint ? <p className="hint">{hint}</p> : null}
     </div>
   );
 }
@@ -59,16 +59,16 @@ export function SelectField({
     <div>
       <label className="label" htmlFor={name}>
         {label}
-        {required ? <span className="text-brand-300"> *</span> : null}
+        {required ? <span className="text-accent-700"> *</span> : null}
       </label>
       <select id={name} name={name} required={required} className="input" {...props}>
         {options.map((option) => (
-          <option key={option} value={option} className="bg-ink-900">
+          <option key={option} value={option}>
             {option}
           </option>
         ))}
       </select>
-      {hint ? <p className="mt-1 text-xs text-slate-500">{hint}</p> : null}
+      {hint ? <p className="hint">{hint}</p> : null}
     </div>
   );
 }
@@ -79,10 +79,10 @@ export function FormMessage({ ok, message }: { ok: boolean; message?: string }) 
     <p
       className={
         ok
-          ? "rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-3.5 py-2.5 text-sm text-emerald-200"
-          : "rounded-xl border border-amber-400/30 bg-amber-500/10 px-3.5 py-2.5 text-sm text-amber-200"
+          ? "rounded-md border border-positive/25 bg-positive/5 px-3.5 py-2.5 text-meta text-positive"
+          : "rounded-md border border-danger/25 bg-danger/5 px-3.5 py-2.5 text-meta text-danger"
       }
-      role="status"
+      role={ok ? "status" : "alert"}
     >
       {message}
     </p>
@@ -92,8 +92,8 @@ export function FormMessage({ ok, message }: { ok: boolean; message?: string }) 
 export function Panel({ title, description, children }: { title: string; description?: string; children: ReactNode }) {
   return (
     <section className="card">
-      <h2 className="text-lg font-semibold text-white">{title}</h2>
-      {description ? <p className="mt-1 text-sm text-slate-400">{description}</p> : null}
+      <h2 className="text-lg font-semibold text-navy-900">{title}</h2>
+      {description ? <p className="mt-1 text-sm text-ink-muted">{description}</p> : null}
       <div className="mt-4">{children}</div>
     </section>
   );

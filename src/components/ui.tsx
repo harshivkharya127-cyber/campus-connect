@@ -2,30 +2,79 @@ import type { ReactNode } from "react";
 
 import { cn, initials } from "@/lib/utils";
 
+/**
+ * Shared UI primitives.
+ * Every screen composes these, which is what keeps spacing, colour and states
+ * consistent. They contain no data fetching and no business rules.
+ */
+
 export function Card({ children, className }: { children: ReactNode; className?: string }) {
   return <div className={cn("card", className)}>{children}</div>;
 }
 
-type Tone = "default" | "brand" | "success" | "warning" | "danger";
+export function CardTitle({ children, as: Tag = "h3" }: { children: ReactNode; as?: "h2" | "h3" }) {
+  return <Tag className="text-base font-semibold">{children}</Tag>;
+}
 
-const TONES: Record<Tone, string> = {
-  default: "border-white/10 bg-white/5 text-slate-300",
-  brand: "border-brand-400/30 bg-brand-500/15 text-brand-200",
-  success: "border-emerald-400/30 bg-emerald-500/15 text-emerald-200",
-  warning: "border-amber-400/30 bg-amber-500/15 text-amber-200",
-  danger: "border-rose-400/30 bg-rose-500/15 text-rose-200",
+type BadgeTone = "neutral" | "accent" | "positive" | "caution" | "danger";
+
+const BADGE_TONES: Record<BadgeTone, string> = {
+  neutral: "badge-neutral",
+  accent: "badge-accent",
+  positive: "badge-positive",
+  caution: "badge-caution",
+  danger: "badge-danger",
 };
 
-export function Badge({ children, tone = "default" }: { children: ReactNode; tone?: Tone }) {
+export function Badge({ children, tone = "neutral" }: { children: ReactNode; tone?: BadgeTone }) {
+  return <span className={BADGE_TONES[tone]}>{children}</span>;
+}
+
+/** Initials avatar — used until a student uploads a picture. */
+export function Avatar({ name, className }: { name: string | null; className?: string }) {
+  const label = name?.trim() || "A student";
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-medium",
-        TONES[tone],
+        "inline-flex size-9 shrink-0 items-center justify-center rounded-full border border-navy-100 bg-navy-50 text-meta font-semibold text-navy-800",
+        className,
       )}
+      title={label}
     >
-      {children}
+      {initials(label) || "?"}
     </span>
+  );
+}
+
+/** "Who posted this" line: initials avatar + name + relative time. */
+export function AuthorLine({ name, timestamp }: { name: string | null; timestamp: string }) {
+  return (
+    <div className="flex items-center gap-2">
+      <Avatar name={name} className="size-7 text-[11px]" />
+      <p className="text-meta text-ink-muted">
+        <span className="font-medium text-ink">{name ?? "A student"}</span>
+        <span aria-hidden="true"> · </span>
+        <span>{timestamp}</span>
+      </p>
+    </div>
+  );
+}
+
+/**
+ * Placeholder block for route-level loading.tsx files. A soft pulse says
+ * "content is coming" without committing to a layout that might not match.
+ */
+export function Skeleton({ className }: { className?: string }) {
+  return <div aria-hidden="true" className={cn("skeleton", className)} />;
+}
+
+export function Stat({ label, value, hint }: { label: string; value: string | number; hint?: string }) {
+  return (
+    <div className="rounded-lg border border-line bg-white px-4 py-3">
+      <p className="text-xl font-semibold text-navy-900 tabular-nums">{value}</p>
+      <p className="mt-0.5 text-meta text-ink-muted">{label}</p>
+      {hint ? <p className="text-meta text-ink-muted/80">{hint}</p> : null}
+    </div>
   );
 }
 
@@ -39,56 +88,33 @@ export function SectionHeading({
   action?: ReactNode;
 }) {
   return (
-    <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+    <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
       <div>
-        <h2 className="text-xl font-semibold text-white sm:text-2xl">{title}</h2>
-        {description ? <p className="mt-1 max-w-2xl text-sm text-slate-400">{description}</p> : null}
+        <h2 className="text-lg font-semibold">{title}</h2>
+        {description ? <p className="mt-0.5 max-w-2xl text-meta text-ink-muted">{description}</p> : null}
       </div>
       {action}
     </div>
   );
 }
 
-export function EmptyState({ title, description }: { title: string; description?: string }) {
+/**
+ * Empty states always offer the next action, so a blank page is never a dead end.
+ */
+export function EmptyState({
+  title,
+  description,
+  action,
+}: {
+  title: string;
+  description?: string;
+  action?: ReactNode;
+}) {
   return (
-    <div className="rounded-2xl border border-dashed border-white/15 bg-white/[0.02] p-8 text-center">
-      <p className="text-sm font-semibold text-slate-200">{title}</p>
-      {description ? <p className="mt-1 text-sm text-slate-400">{description}</p> : null}
-    </div>
-  );
-}
-
-export function Avatar({ name, className }: { name: string | null; className?: string }) {
-  return (
-    <span
-      className={cn(
-        "inline-flex size-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-gradient-to-br from-brand-500/40 to-sky-500/30 text-xs font-semibold text-white",
-        className,
-      )}
-      title={name ?? "Student"}
-    >
-      {initials(name ?? "Student") || "?"}
-    </span>
-  );
-}
-
-export function Stat({ label, value, hint }: { label: string; value: string | number; hint?: string }) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-      <p className="text-2xl font-semibold text-white">{value}</p>
-      <p className="mt-0.5 text-xs font-medium tracking-wide text-slate-400 uppercase">{label}</p>
-      {hint ? <p className="mt-1 text-xs text-slate-500">{hint}</p> : null}
-    </div>
-  );
-}
-
-export function AuthorLine({ name, timestamp }: { name: string | null; timestamp: string }) {
-  return (
-    <div className="flex items-center gap-2 text-xs text-slate-400">
-      <Avatar name={name} className="size-6 text-[10px]" />
-      <span className="font-medium text-slate-300">{name ?? "Student"}</span>
-      <span aria-hidden>·</span>
-      <span>{timestamp}</span>
+    <div className="empty">
+      <p className="font-medium text-navy-900">{title}</p>
+      {description ? <p className="mx-auto mt-1 max-w-md text-meta text-ink-muted">{description}</p> : null}
+      {action ? <div className="mt-4 flex flex-wrap justify-center gap-2">{action}</div> : null}
     </div>
   );
 }

@@ -13,11 +13,11 @@ export function PageHeader({
   action?: ReactNode;
 }) {
   return (
-    <div className="flex flex-wrap items-end justify-between gap-4 border-b border-white/10 pb-6">
+    <div className="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-6">
       <div className="max-w-3xl">
-        {eyebrow ? <p className="text-xs font-semibold tracking-widest text-brand-300 uppercase">{eyebrow}</p> : null}
-        <h1 className="mt-2 text-3xl font-bold text-white sm:text-4xl">{title}</h1>
-        {description ? <p className="mt-2 text-sm text-slate-400 sm:text-base">{description}</p> : null}
+        {eyebrow ? <p className="text-xs font-semibold tracking-widest text-accent-700 uppercase">{eyebrow}</p> : null}
+        <h1 className="mt-2 text-3xl font-bold text-navy-900 sm:text-4xl">{title}</h1>
+        {description ? <p className="mt-2 text-sm text-ink-muted sm:text-base">{description}</p> : null}
       </div>
       {action}
     </div>

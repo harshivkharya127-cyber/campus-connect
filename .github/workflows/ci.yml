@@ -29,7 +29,7 @@ jobs:
       - name: Type-check
         run: npm run typecheck
 
-      - name: Data layer smoke test (demo mode, no database needed)
+      - name: Unit + data-layer tests (demo mode, no database needed)
         run: npm test
 
       - name: Production build

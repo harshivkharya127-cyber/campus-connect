@@ -24,7 +24,7 @@ export default async function ClubsPage() {
       <PageHeader
         eyebrow="Clubs"
         title="Find your people"
-        description="Join a club in one tap, leave whenever you want, or register a new society. Membership is a real many-to-many table in Postgres."
+        description="Every society on campus, from robotics to film. Join in one tap — and leave just as easily when exam season hits."
       />
 
       <section className="grid grid-cols-2 gap-4 sm:grid-cols-3">
@@ -43,11 +43,19 @@ export default async function ClubsPage() {
               ))}
             </div>
           ) : (
-            <EmptyState title="No clubs listed yet" description="Start the first one using the form." />
+            <EmptyState
+              title="No clubs listed yet"
+              description="Start the first one — you'll be the admin and anyone can join right away."
+              action={
+                <a href="#start" className="btn-primary btn-sm">
+                  Register a club
+                </a>
+              }
+            />
           )}
         </section>
 
-        <aside className="space-y-5 lg:sticky lg:top-28 lg:self-start">
+        <aside id="start" className="space-y-5 lg:sticky lg:top-28 lg:self-start">
           <Panel
             title="Start a club"
             description="You become the club admin automatically, and students can join straight away."
@@ -57,8 +65,8 @@ export default async function ClubsPage() {
 
           {myClubs.length > 0 ? (
             <div className="card">
-              <h3 className="text-sm font-semibold text-white">Your memberships</h3>
-              <ul className="mt-3 space-y-2 text-sm text-slate-300">
+              <h3 className="text-sm font-semibold text-navy-900">Your memberships</h3>
+              <ul className="mt-3 space-y-2 text-sm text-ink">
                 {myClubs.map((club) => (
                   <li key={club.id} className="flex items-center justify-between gap-3">
                     <span className="truncate">{club.name}</span>

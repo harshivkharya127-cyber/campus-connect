@@ -24,7 +24,7 @@ export default async function TeammatesPage() {
       <PageHeader
         eyebrow="Teammates"
         title="Find people to build with"
-        description="Hackathon squads, study groups, research partners and side projects. Post what you need — interested students tap once and you see the count."
+        description="Looking for a hackathon squad, a lab partner or one more person for the fest committee? Post what you need and let people come to you."
       />
 
       <section className="grid grid-cols-2 gap-4 sm:grid-cols-3">
@@ -43,7 +43,10 @@ export default async function TeammatesPage() {
               ))}
             </div>
           ) : (
-            <EmptyState title="No posts yet" description="Describe the teammate you're looking for." />
+            <EmptyState
+              title="Nothing open right now"
+              description="Post what you're working on — even “two more for our DBMS project” gets replies."
+            />
           )}
         </section>
 
@@ -53,8 +56,8 @@ export default async function TeammatesPage() {
           </Panel>
 
           <div className="card">
-            <h3 className="text-sm font-semibold text-white">Tips that get replies</h3>
-            <ul className="mt-3 space-y-2 text-sm text-slate-400">
+            <h3 className="text-sm font-semibold text-navy-900">Tips that get replies</h3>
+            <ul className="mt-3 space-y-2 text-sm text-ink-muted">
               <li>• Name the project type and the deadline.</li>
               <li>• List the 2-3 skills you actually need.</li>
               <li>• Say how often you plan to meet.</li>

@@ -37,7 +37,15 @@ export function EventForm() {
       <div className="grid gap-4 sm:grid-cols-3">
         <TextField label="Starts" name="startsAt" type="datetime-local" required />
         <TextField label="Ends" name="endsAt" type="datetime-local" />
-        <TextField label="Capacity" name="capacity" type="number" min={1} max={100000} placeholder="120" />
+        <TextField
+          label="Capacity"
+          name="capacity"
+          type="number"
+          min={1}
+          max={100000}
+          placeholder="120"
+          hint="Optional — leave empty if there's no fixed limit."
+        />
       </div>
       <FormMessage ok={state.ok} message={state.message} />
       <SubmitButton className="btn-primary w-full" pendingText="Publishing…">

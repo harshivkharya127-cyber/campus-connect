@@ -22,7 +22,7 @@ export default async function EventsPage() {
       <PageHeader
         eyebrow="Events"
         title="What's happening on campus"
-        description="Every event is stored in Postgres with its own RSVP table. Post one and watch the seat counter move as students tap RSVP."
+        description="Fests, workshops, club mixers and placement talks — see what's coming up and RSVP in one tap. Change your mind just as easily."
         action={
           <Link href="#host" className="btn-primary px-5 py-3">
             Host an event
@@ -50,8 +50,13 @@ export default async function EventsPage() {
             </div>
           ) : (
             <EmptyState
-              title="No events yet"
-              description="Be the first to post something — a study jam, a hackathon team meetup, anything."
+              title="No events this week"
+              description="Host one for your club — a workshop, a screening, an open mic. It takes under a minute."
+              action={
+                <Link href="#host" className="btn-primary btn-sm">
+                  Host the first one
+                </Link>
+              }
             />
           )}
         </section>
@@ -65,8 +70,8 @@ export default async function EventsPage() {
           </Panel>
 
           <div className="card">
-            <h3 className="text-sm font-semibold text-white">How RSVPs work</h3>
-            <ul className="mt-3 space-y-2 text-sm text-slate-400">
+            <h3 className="text-sm font-semibold text-navy-900">How RSVPs work</h3>
+            <ul className="mt-3 space-y-2 text-sm text-ink-muted">
               <li>• One row per student in `event_rsvps`, so counts stay exact.</li>
               <li>• Tapping RSVP again cancels it — no duplicate seats.</li>
               <li>• Authors can delete their own event; the cascade removes the RSVPs.</li>

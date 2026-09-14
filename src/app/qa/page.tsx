@@ -24,7 +24,7 @@ export default async function QaPage() {
       <PageHeader
         eyebrow="Q&A"
         title="Ask the campus"
-        description="Internships, electives, exam prep, hostel life — ask it here. Answers are stored per question and the asker can accept the best one."
+        description="Stuck on an elective, an assignment or internship prep? Ask here — someone on campus has already been through it."
       />
 
       <section className="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -44,18 +44,26 @@ export default async function QaPage() {
               ))}
             </div>
           ) : (
-            <EmptyState title="No questions yet" description="Ask the first one — someone on campus has the answer." />
+            <EmptyState
+              title="No questions yet"
+              description="Ask the first one — someone on campus knows the answer."
+              action={
+                <a href="#ask" className="btn-primary btn-sm">
+                  Ask a question
+                </a>
+              }
+            />
           )}
         </section>
 
-        <aside className="space-y-5 lg:sticky lg:top-28 lg:self-start">
+        <aside id="ask" className="space-y-5 lg:sticky lg:top-28 lg:self-start">
           <Panel title="Ask a question" description="Add tags so the right people notice it.">
             {user ? <QuestionForm /> : <SignInPrompt message="Log in to ask the campus." />}
           </Panel>
 
           {tags.length ? (
             <div className="card">
-              <h3 className="text-sm font-semibold text-white">Popular tags</h3>
+              <h3 className="text-sm font-semibold text-navy-900">Popular tags</h3>
               <ul className="mt-3 flex flex-wrap gap-2">
                 {tags.slice(0, 12).map((tag) => (
                   <li key={tag} className="chip">
