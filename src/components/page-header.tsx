@@ -1,0 +1,29 @@
+import type { ReactNode } from "react";
+
+/** Consistent page hero used by every top-level route. */
+export function PageHeader({
+  eyebrow,
+  title,
+  description,
+  action,
+}: {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  action?: ReactNode;
+}) {
+  return (
+    <div className="flex flex-wrap items-end justify-between gap-4 border-b border-white/10 pb-6">
+      <div className="max-w-3xl">
+        {eyebrow ? <p className="text-xs font-semibold tracking-widest text-brand-300 uppercase">{eyebrow}</p> : null}
+        <h1 className="mt-2 text-3xl font-bold text-white sm:text-4xl">{title}</h1>
+        {description ? <p className="mt-2 text-sm text-slate-400 sm:text-base">{description}</p> : null}
+      </div>
+      {action}
+    </div>
+  );
+}
+
+export function PageShell({ children }: { children: ReactNode }) {
+  return <div className="space-y-8">{children}</div>;
+}
